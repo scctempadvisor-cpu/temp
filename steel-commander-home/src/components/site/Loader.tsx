@@ -83,6 +83,7 @@ export function Loader() {
   return (
     <div
       ref={rootRef}
+      id="site-loader"
       aria-hidden
       className="fixed inset-0 z-[200] cursor-crosshair"
       style={{ "--mx": "50vw", "--my": "50vh", pointerEvents: out ? "none" : "auto" } as CSSProperties}

@@ -98,7 +98,7 @@ export function PlanRoom() {
             </div>
 
             <InView key={`s-${b.id}`} margin="0px" className="flex flex-col border-b border-rule px-4 py-6 sm:px-6 lg:col-span-5">
-              <h3 className="font-display text-[clamp(26px,2.4vw,36px)] font-bold uppercase leading-[0.95] tracking-[-0.025em] text-ink">
+              <h3 className="font-display text-[clamp(26px,2.4vw,36px)] font-bold uppercase leading-[0.95] tracking-[0.005em] text-ink">
                 <span className="rv-word">
                   <span>{b.name}</span>
                 </span>

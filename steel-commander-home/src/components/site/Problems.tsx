@@ -1,9 +1,10 @@
 "use client";
 
 import { type CSSProperties, type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { CtaLink } from "@/components/ui/button";
 import { LINKS } from "@/lib/buildings";
 import { cn } from "@/lib/utils";
-import { Arrow, Idx, Label, Section } from "./kit";
+import { Idx, Label, Section } from "./kit";
 import { InView, RevealHeading } from "./motion";
 
 const ISO = "matrix(0.866 0.5 -0.866 0.5 100 0)";
@@ -246,7 +247,7 @@ export function Problems() {
               <div className="relative mx-auto mt-6 w-[78%] max-w-[240px]">
                 <IsoStack motif={it.motif} active={active === i} />
               </div>
-              <h3 className="mt-6 font-display text-[clamp(22px,1.9vw,30px)] font-bold uppercase leading-[0.98] tracking-[-0.025em] text-ink">
+              <h3 className="mt-6 font-display text-[clamp(26px,2.2vw,34px)] font-bold uppercase leading-[0.94] tracking-[0.005em] text-ink">
                 {it.title.map((l, j) => (
                   <span key={l} className={cn("block", j === 2 && "text-scc")}>
                     {l}
@@ -254,12 +255,14 @@ export function Problems() {
                 ))}
               </h3>
               <p className="mt-4 flex-1 text-[14.5px] leading-relaxed text-graphite">{it.body}</p>
-              <a
+              <CtaLink
                 href={LINKS.quote}
-                className="mono-label mt-6 inline-flex items-center gap-3 text-[11px] text-ink transition-colors hover:text-scc"
+                variant={active === i ? "default" : "ink"}
+                className="mt-7 w-full justify-between"
+                aria-label={`Explore more: ${it.tag.toLowerCase()} and steel buildings`}
               >
-                Explore more <Arrow className="transition-transform group-hover:translate-x-1" />
-              </a>
+                Explore more
+              </CtaLink>
               <span className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-scc transition-transform duration-500 group-hover:scale-x-100" />
             </article>
           ))}

@@ -72,7 +72,7 @@ export function Uses() {
                   <span className={cn("mono w-8 text-[11px]", isOpen ? "text-paper/55" : "text-pencil")}>
                     [{String(i + 1).padStart(2, "0")}]
                   </span>
-                  <span className="flex-1 font-display text-[clamp(18px,2vw,28px)] font-bold uppercase leading-none tracking-[-0.02em]">
+                  <span className="flex-1 font-display text-[clamp(18px,2vw,28px)] font-bold uppercase leading-none tracking-[0.005em]">
                     {u.label.replace(" Steel Buildings", "").replace(" Steel Building", "").replace(" Steel buildings", "")}
                   </span>
                   <span

@@ -86,35 +86,82 @@ body::after {
   .tech {
     font-family: var(--font-rajdhani), sans-serif;
   }
+  /* Engineering display face: static Barlow Condensed (no overlapping contours,
+     so outlined / stroked type stays crisp like a plotted drawing) */
   .h-display {
-    font-family: var(--font-montserrat), sans-serif;
+    font-family: var(--font-barlow), var(--font-rajdhani), sans-serif;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: -0.025em;
-    line-height: 0.95;
+    letter-spacing: -0.005em;
+    line-height: 0.92;
+  }
+  .font-brand {
+    font-family: var(--font-montserrat), ui-sans-serif, sans-serif;
   }
 
-  /* faint drafting grid */
+  /* faint drafting grid (line colour follows the active theme) */
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(29, 29, 27, 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(29, 29, 27, 0.055) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--grid-rgb) / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid-rgb) / 0.055) 1px, transparent 1px);
     background-size: 40px 40px;
   }
   .bg-grid-fine {
     background-image:
-      linear-gradient(to right, rgba(29, 29, 27, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(29, 29, 27, 0.06) 1px, transparent 1px),
-      linear-gradient(to right, rgba(29, 29, 27, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(29, 29, 27, 0.03) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--grid-rgb) / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid-rgb) / 0.06) 1px, transparent 1px),
+      linear-gradient(to right, rgb(var(--grid-rgb) / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid-rgb) / 0.03) 1px, transparent 1px);
     background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
   }
   .bg-hatch {
     background-image: repeating-linear-gradient(
       -45deg,
-      rgba(29, 29, 27, 0.14) 0 1px,
+      rgb(var(--grid-rgb) / 0.14) 0 1px,
       transparent 1px 7px
     );
+  }
+
+  /* ---------- Theme swaps ----------
+     .theme-ink   = black drafting sheet (light linework on ink)
+     .theme-paper = resets to paper inside an ink section (photos, plan panels) */
+  .theme-ink {
+    --paper: #151514;
+    --paper-2: #1d1d1b;
+    --paper-3: #2a2a27;
+    --ink: #f2f2eb;
+    --graphite: #c5c6bc;
+    --pencil: #8f9088;
+    --rule: #3b3b37;
+    --rule-soft: #2b2b28;
+    --grid-rgb: 242 242 235;
+    --background: 60 3% 8%;
+    --foreground: 60 21% 94%;
+    --border: 60 3% 22%;
+    --input: 60 3% 22%;
+    --muted: 60 3% 14%;
+    --muted-foreground: 64 3% 55%;
+    background-color: var(--paper);
+    color: var(--ink);
+  }
+  .theme-paper {
+    --paper: #f2f2eb;
+    --paper-2: #e9e9e0;
+    --paper-3: #dfdfd4;
+    --ink: #1d1d1b;
+    --graphite: #454640;
+    --pencil: #8b8c84;
+    --rule: #c4c5bb;
+    --rule-soft: #dadbd0;
+    --grid-rgb: 29 29 27;
+    --background: 60 21% 94%;
+    --foreground: 60 4% 11%;
+    --border: 64 8% 75%;
+    --input: 64 8% 75%;
+    color: var(--ink);
+  }
+  .theme-ink ::selection {
+    color: #f2f2eb;
   }
 
   /* B/W print treatment for real photos */
@@ -279,6 +326,7 @@ html.lenis body {
 .text-outline {
   color: transparent;
   -webkit-text-stroke: 1.4px var(--ink);
+  paint-order: stroke fill;
 }
 .text-outline-paper {
   color: transparent;
@@ -290,6 +338,26 @@ html.lenis body {
   flex: 1;
   border-bottom: 1px dotted var(--rule);
   transform: translateY(-4px);
+}
+
+/* photos keep their print treatment on ink sheets */
+.theme-ink .print-photo {
+  mix-blend-mode: normal;
+  filter: grayscale(1) contrast(1.08) brightness(0.92);
+}
+
+/* FAQ disclosure */
+.faq-item > summary {
+  list-style: none;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item[open] .faq-plus {
+  transform: rotate(45deg);
+  background: var(--scc);
+  border-color: var(--scc);
+  color: #f2f2eb;
 }
 
 /* hide scrollbars on horizontal rails */

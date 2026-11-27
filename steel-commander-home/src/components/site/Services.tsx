@@ -118,7 +118,7 @@ export function Services() {
   ];
 
   return (
-    <Section id="services">
+    <Section id="services" className="theme-ink">
       <div className="flex flex-wrap items-end justify-between gap-6 px-4 pb-10 pt-16 sm:px-6 lg:pt-24">
         <div>
           <Label>Services</Label>
@@ -137,11 +137,11 @@ export function Services() {
               <span className="mono-label text-[10.5px] text-scc">{c.k}</span>
               <Idx n={i + 1} />
             </div>
-            <div className="relative h-[210px] overflow-hidden border-b border-rule bg-paper-2/60 transition-colors duration-500 group-hover:bg-paper">
+            <div className="theme-paper relative h-[210px] overflow-hidden border-b border-[#3b3b37] bg-paper-2 transition-colors duration-500 group-hover:bg-paper">
               {c.visual}
             </div>
             <div className="flex flex-1 flex-col px-5 py-7">
-              <h3 className="font-display text-[26px] font-bold uppercase leading-[0.98] tracking-[-0.025em] text-ink">{c.title}</h3>
+              <h3 className="font-display text-[30px] font-bold uppercase leading-[0.94] tracking-[0.005em] text-ink">{c.title}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-graphite">{c.body}</p>
               {c.note && <p className="mt-3 text-[12.5px] italic text-pencil">{c.note}</p>}
               <div className="mt-auto pt-7">

@@ -1,5 +1,7 @@
+const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const baseConfig = {
   allowedDevOrigins: ["*.preview.same-app.com"],
   images: {
     unoptimized: true,
@@ -34,4 +36,12 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+/**
+ * Default: standard Next.js build for Netlify's Next.js runtime (every route is
+ * prerendered static: /, robots.txt, sitemap.xml, manifest.webmanifest).
+ * Set STATIC_EXPORT=1 to export a plain static site to `out/` instead.
+ */
+module.exports = (phase) =>
+  phase !== PHASE_DEVELOPMENT_SERVER && process.env.STATIC_EXPORT === "1"
+    ? { ...baseConfig, output: "export", distDir: "out" }
+    : baseConfig;

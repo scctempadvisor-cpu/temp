@@ -162,7 +162,7 @@ const PRODUCTS: Prod[] = [
 
 export function Products() {
   return (
-    <Section id="products">
+    <Section id="products" className="theme-ink">
       <div className="grid gap-8 px-4 pb-12 pt-16 sm:px-6 lg:grid-cols-12 lg:pb-16 lg:pt-24">
         <div className="lg:col-span-7">
           <Label>Product offering</Label>
@@ -195,7 +195,7 @@ export function Products() {
               </span>
               <span className="mono-label bg-ink px-2 py-1 text-[10px] text-paper">{p.tag}</span>
             </div>
-            <div className="grid grid-cols-5 border-b border-rule">
+            <div className="theme-paper grid grid-cols-5 border-b border-[#3b3b37] bg-paper">
               <div className="relative col-span-2 aspect-square border-r border-rule bg-grid-fine p-3">
                 <Plotted className="h-full w-full" opts={{ total: 1.1, dur: 1 }}>
                   {p.section}

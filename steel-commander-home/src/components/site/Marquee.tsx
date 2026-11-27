@@ -62,7 +62,7 @@ export function Marquee() {
   );
 
   return (
-    <section aria-label="Why steel" className="relative overflow-hidden border-y border-rule bg-paper-2/50">
+    <section aria-label="Why steel" className="theme-ink relative overflow-hidden border-y border-rule">
       <div className="mx-auto max-w-[1440px] border-x border-rule">
         <div className="mono-label flex items-center justify-between border-b border-rule px-4 py-2 text-[10px] text-pencil sm:px-6">
           <span>[ Spec sheet ]</span>
@@ -72,7 +72,7 @@ export function Marquee() {
       </div>
       <div
         ref={track}
-        className="flex w-max select-none whitespace-nowrap py-5 font-display text-[clamp(42px,7.4vw,116px)] font-extrabold uppercase leading-none tracking-[-0.035em] will-change-transform"
+        className="flex w-max select-none whitespace-nowrap py-5 font-display text-[clamp(48px,8.4vw,132px)] font-extrabold uppercase leading-none tracking-[0.005em] will-change-transform"
       >
         {row("a")}
         {row("b")}

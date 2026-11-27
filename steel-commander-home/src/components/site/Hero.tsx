@@ -14,10 +14,10 @@ import { Plotted } from "./motion";
 const PAD = 1.5;
 
 const TAGS = [
-  { x: 30, y: 25, code: "RF-60", text: "Rigid frame · 60' clear span", pos: "ne" },
-  { x: 14, y: 21.4, code: "Z-PURLIN", text: '8" Z-purlins @ 5\' o.c.', pos: "nw" },
-  { x: -8, y: 11.2, code: "LT-16", text: "Enclosed lean-to · 3:12", pos: "nw" },
-  { x: 59.4, y: -1.6, code: "A.B.", text: "Anchor bolts · stamped plan", pos: "se" },
+  { x: 30, y: 25, code: "Frame", text: "Rigid frame", pos: "ne" },
+  { x: 14, y: 21.4, code: "Roof", text: "Purlins", pos: "nw" },
+  { x: -8, y: 11.2, code: "Add-on", text: "Lean-to", pos: "nw" },
+  { x: 59.4, y: -1.6, code: "Base", text: "Anchor bolts", pos: "se" },
 ] as const;
 
 const STEPS = [
@@ -128,17 +128,26 @@ export function Hero() {
   }, [box]);
 
   const meta = (
-    <dl className="mono-label grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[10.5px] leading-[1.45] text-graphite">
-      <dt className="col-span-2 mb-1 text-ink">Welcome to Steel Commander Corp</dt>
-      <dt className="text-pencil">Type:</dt>
-      <dd>Pre-engineered steel building kits</dd>
-      <dt className="text-pencil">Made:</dt>
-      <dd>American-made · factory direct</dd>
-      <dt className="text-pencil">Focus:</dt>
-      <dd>Commercial · residential · agricultural · storage</dd>
-      <dt className="text-pencil">HQ:</dt>
-      <dd>2200 Corporate Blvd NW Ste 402, Boca Raton, FL 33431</dd>
-    </dl>
+    <div>
+      <p className="flex items-center gap-2.5 font-display text-[clamp(26px,2.3vw,34px)] font-extrabold uppercase leading-[0.9] tracking-[0.005em] text-ink">
+        <span aria-hidden className="h-[0.8em] w-[5px] shrink-0 bg-scc" />
+        <span>
+          Welcome to <span className="text-scc">Steel Commander</span>
+        </span>
+      </p>
+      <dl className="mono-label mt-3.5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 border-t border-ink/70 pt-3 text-[10.5px] leading-[1.45] text-graphite">
+        <dt className="text-pencil">Type:</dt>
+        <dd>Pre-engineered steel building kits</dd>
+        <dt className="text-pencil">Made:</dt>
+        <dd>American-made · factory direct</dd>
+        <dt className="text-pencil">Focus:</dt>
+        <dd>Commercial · residential · agricultural · storage</dd>
+        <dt className="text-pencil">HQ:</dt>
+        <dd>
+          <address className="not-italic">2200 Corporate Blvd NW Ste 402, Boca Raton, FL 33431</address>
+        </dd>
+      </dl>
+    </div>
   );
 
   const checklist = (
@@ -167,7 +176,7 @@ export function Hero() {
   );
 
   return (
-    <section className="relative">
+    <section aria-label="Steel Commander Corp: the superior choice for steel building kits" className="relative">
       <div className="relative mx-auto max-w-[1440px] border-x border-rule">
         {/* drafting frame */}
         <div className="relative overflow-hidden border-b border-rule bg-grid">
@@ -279,7 +288,7 @@ export function Hero() {
                       )}
                     >
                       <span className="mono-label bg-scc px-2 py-1 text-[10px] text-paper">{tg.code}</span>
-                      <span className="border border-t-0 border-ink/80 bg-paper px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-[-0.01em] text-ink">
+                      <span className="border border-t-0 border-ink/80 bg-paper px-2 py-1 font-display text-[14px] font-bold uppercase leading-none tracking-[0.02em] text-ink">
                         {tg.text}
                       </span>
                     </div>
@@ -322,7 +331,7 @@ export function Hero() {
             building kits
           </h1>
           <div className="flex flex-col justify-end gap-6 lg:col-span-4 rise" style={{ animationDelay: ".45s" }}>
-            <p className="text-[17px] leading-relaxed text-graphite">
+            <p className="text-[17px] leading-relaxed text-graphite" data-speakable>
               Tell us what you&apos;re building, and we&apos;ll help you plan the right steel structure for your
               project. Every kit is pre-engineered, stamped for your state and shipped factory direct.
             </p>

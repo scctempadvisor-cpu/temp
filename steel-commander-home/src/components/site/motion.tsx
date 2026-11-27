@@ -226,7 +226,7 @@ export function Plotted({
   }, [go]);
 
   return (
-    <div ref={ref} className={className} style={{ ...style, opacity: shown ? 1 : 0 }}>
+    <div ref={ref} data-plot="" className={className} style={{ ...style, opacity: shown ? 1 : 0 }}>
       {children}
     </div>
   );
