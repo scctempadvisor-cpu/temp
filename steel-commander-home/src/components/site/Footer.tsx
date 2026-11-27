@@ -50,7 +50,7 @@ function toTop() {
 export function Footer() {
   const word = "STEEL COMMANDER".split("");
   return (
-    <footer className="relative overflow-hidden bg-ink text-paper">
+    <footer aria-label="Site footer" className="relative overflow-hidden bg-ink text-paper">
       <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,var(--paper)_1px,transparent_1px),linear-gradient(to_bottom,var(--paper)_1px,transparent_1px)] [background-size:40px_40px]" />
       <div className="relative mx-auto max-w-[1440px] border-x border-paper/15">
         <div className="grid gap-10 border-b border-paper/15 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:py-20">
@@ -68,7 +68,7 @@ export function Footer() {
 
           {COLS.map((c) => (
             <div key={c.title} className="lg:col-span-2">
-              <h4 className="mono-label text-[10.5px] text-paper/45">{c.title}</h4>
+              <h2 className="mono-label text-[10.5px] text-paper/45">{c.title}</h2>
               <ul className="mt-5 space-y-2.5">
                 {c.links.map(([l, h]) => (
                   <li key={l}>
@@ -83,7 +83,7 @@ export function Footer() {
           ))}
 
           <div className="sm:col-span-1 lg:col-span-2">
-            <h4 className="mono-label text-[10.5px] text-paper/45">Contact</h4>
+            <h2 className="mono-label text-[10.5px] text-paper/45">Contact</h2>
             <a href={LINKS.phone} className="mt-5 block">
               <span className="mono-label block text-[10px] text-paper/45">Give us a call</span>
               <span className="font-tech text-[26px] font-bold tracking-[0.02em] text-paper">{LINKS.phoneLabel}</span>
@@ -92,7 +92,7 @@ export function Footer() {
             <a href={REVIEW} className="mt-5 inline-block border-b border-scc pb-0.5 text-[14px] text-paper/85 hover:text-paper">
               Leave us a review
             </a>
-            <h4 className="mono-label mt-8 text-[10.5px] text-paper/45">Follow us</h4>
+            <h2 className="mono-label mt-8 text-[10.5px] text-paper/45">Follow us</h2>
             <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
               {SOCIAL.map(([l, h]) => (
                 <li key={l}>
@@ -105,12 +105,16 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mono-label text-[10.5px] text-paper/45">Visit us</h4>
-            <a href="https://g.page/steel-commander-corp" target="_blank" rel="noreferrer" className="mt-5 block text-[14.5px] leading-relaxed text-paper/85 hover:text-paper">
-              2200 Corporate Blvd NW Ste 402
-              <br />
-              Boca Raton, FL 33431
-            </a>
+            <h2 className="mono-label text-[10.5px] text-paper/45">Visit us</h2>
+            <address className="not-italic">
+              <a href="https://g.page/steel-commander-corp" target="_blank" rel="noreferrer" className="mt-5 block text-[14.5px] leading-relaxed text-paper/85 hover:text-paper">
+                Steel Commander Corp
+                <br />
+                2200 Corporate Blvd NW Ste 402
+                <br />
+                Boca Raton, FL 33431
+              </a>
+            </address>
             <a href="https://g.page/steel-commander-corp" target="_blank" rel="noreferrer" className="mono-label mt-3 inline-block text-[10.5px] text-scc">
               Get directions →
             </a>
@@ -134,7 +138,7 @@ export function Footer() {
         <InView className="relative overflow-hidden border-b border-paper/15 px-2 pb-2 pt-8 sm:px-4">
           <div
             aria-label="Steel Commander"
-            className="flex select-none justify-between font-display text-[clamp(40px,12.4vw,190px)] font-extrabold leading-[0.8] tracking-[-0.05em]"
+            className="flex select-none justify-between font-display text-[clamp(40px,12.4vw,190px)] font-extrabold leading-[0.8] tracking-[-0.005em]"
           >
             {word.map((ch, i) => (
               <span key={`${ch}-${i}`} className="rv-word" aria-hidden>

@@ -14,6 +14,19 @@ export function Cross({ className }: { className?: string }) {
   );
 }
 
+/** Accessible names for landmark sections (screen readers + crawlers) */
+const SECTION_LABELS: Record<string, string> = {
+  intro: "About Steel Commander Corp steel building kits",
+  problems: "The problem with traditional building materials",
+  why: "Why choose Steel Commander Corp",
+  products: "Steel building frame systems: C-channel and rigid frame",
+  "plan-room": "Sample steel building plans",
+  uses: "Steel building use cases",
+  services: "Design, financing and installation services",
+  welcome: "Welcome video and customer testimonial",
+  certifications: "Certifications and memberships",
+};
+
 /** Section wrapper: hairline top rule + crosses at the container edges */
 export function Section({
   id,
@@ -21,15 +34,21 @@ export function Section({
   className,
   inner,
   crosses = true,
+  label,
 }: {
   id?: string;
   children: ReactNode;
   className?: string;
   inner?: string;
   crosses?: boolean;
+  label?: string;
 }) {
   return (
-    <section id={id} className={cn("relative border-t border-rule", className)}>
+    <section
+      id={id}
+      aria-label={label ?? (id ? SECTION_LABELS[id] : undefined)}
+      className={cn("relative border-t border-rule", className)}
+    >
       <div className={cn("relative mx-auto max-w-[1440px] border-x border-rule", inner)}>
         {crosses && (
           <>
@@ -84,7 +103,7 @@ export function Wordmark({ dark = false, className }: { dark?: boolean; classNam
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-display text-[15px] font-extrabold uppercase tracking-[-0.01em]",
+            "font-brand text-[15px] font-extrabold uppercase tracking-[-0.01em]",
             dark ? "text-paper" : "text-ink",
           )}
         >
@@ -94,7 +113,7 @@ export function Wordmark({ dark = false, className }: { dark?: boolean; classNam
           <span className="h-[2px] w-5 bg-scc" />
           <span
             className={cn(
-              "font-display text-[9.5px] font-medium uppercase tracking-[0.55em]",
+              "font-brand text-[9.5px] font-medium uppercase tracking-[0.55em]",
               dark ? "text-paper/60" : "text-graphite",
             )}
           >

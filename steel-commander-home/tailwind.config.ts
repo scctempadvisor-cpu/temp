@@ -10,7 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['var(--font-montserrat)', 'sans-serif'],
+        display: ['var(--font-barlow)', 'var(--font-rajdhani)', 'sans-serif'],
+        brand: ['var(--font-montserrat)', 'sans-serif'],
         tech: ['var(--font-rajdhani)', 'sans-serif'],
         mono: ['var(--font-plex-mono)', 'ui-monospace', 'monospace'],
       },

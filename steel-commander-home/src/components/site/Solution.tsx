@@ -58,7 +58,7 @@ export function Solution() {
                 <span>[{s.code}]</span>
                 <span>{s.pre || "\u00a0"}</span>
               </div>
-              <div className="mt-8 flex items-start font-display font-extrabold leading-[0.82] tracking-[-0.05em]">
+              <div className="mt-8 flex items-start font-display font-extrabold leading-[0.82] tracking-[-0.005em]">
                 <CountUp to={s.to} className="text-[clamp(64px,8.4vw,140px)]" />
                 <span className="mt-2 text-[clamp(28px,3.4vw,56px)] text-scc">{s.unit}</span>
               </div>

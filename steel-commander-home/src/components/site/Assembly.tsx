@@ -83,7 +83,7 @@ const CALLOUTS = [
     id: "D",
     x: 47,
     y: 5.6,
-    code: "LT-14",
+    code: "ADD-ON",
     title: "Enclosed lean-to",
     body: "Lean-tos, wainscot, doors and windows are engineered into the same package. Add what you need, skip what you don't.",
   },

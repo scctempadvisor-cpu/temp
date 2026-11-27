@@ -80,7 +80,7 @@ function StickerBox({ s, i }: { s: Sticker; i: number }) {
       <span className={cn("mono-label px-2 py-1.5 text-[10px] text-paper", s.tone === "red" ? "bg-scc" : "bg-ink")}>
         {s.code}
       </span>
-      <span className="border border-l-0 border-ink/80 bg-paper px-2 py-1.5 font-display text-[11px] font-semibold uppercase tracking-[-0.01em] text-ink">
+      <span className="border border-l-0 border-ink/80 bg-paper px-2 py-1.5 font-display text-[14px] font-bold uppercase leading-none tracking-[0.02em] text-ink">
         {s.text}
       </span>
     </div>
@@ -138,7 +138,7 @@ function StageCard({
     <div ref={ref} className="border-b border-rule px-4 py-12 last:border-b-0 sm:px-8 lg:py-20">
       <InView>
         <div className="flex items-baseline justify-between">
-          <span className="fu font-display text-[clamp(40px,5vw,76px)] font-extrabold uppercase leading-none tracking-[-0.04em] text-ink">
+          <span className="fu font-display text-[clamp(40px,5vw,76px)] font-extrabold uppercase leading-none tracking-[0em] text-ink">
             {stage.verb}
           </span>
           <Idx n={i + 1} className="fu" />
@@ -171,7 +171,7 @@ function ServiceCard({ icon, title, body, idx }: { icon: ReactNode; title: strin
         </span>
         <Idx n={`S-0${idx + 1}`} />
       </div>
-      <h3 className="mt-6 font-display text-[24px] font-bold uppercase leading-none tracking-[-0.02em] text-ink">{title}</h3>
+      <h3 className="mt-6 font-display text-[24px] font-bold uppercase leading-none tracking-[0.005em] text-ink">{title}</h3>
       <p className="mt-3 flex-1 text-[15px] leading-relaxed text-graphite">{body}</p>
       <div className="mt-6">
         <CtaLink href={LINKS.quote} size="sm">
@@ -185,7 +185,11 @@ function ServiceCard({ icon, title, body, idx }: { icon: ReactNode; title: strin
 export function Why() {
   const [active, setActive] = useState(-1);
   const [reached, setReached] = useState(-1);
-  const lineRef = useRef<HTMLDivElement>(null);
+  const crossRef = useRef<HTMLDivElement>(null);
+  const hRef = useRef<HTMLSpanElement>(null);
+  const vRef = useRef<HTMLSpanElement>(null);
+  const reticleRef = useRef<HTMLSpanElement>(null);
+  const xRef = useRef<HTMLSpanElement>(null);
   const yRef = useRef<HTMLSpanElement>(null);
   const colRef = useRef<HTMLDivElement>(null);
 
@@ -194,31 +198,45 @@ export function Why() {
     setReached((r) => Math.max(r, i));
   }, []);
 
-  // measure line that follows the pointer (Heron "why" line)
+  // drafting crosshair that follows the pointer across the stage column
   useEffect(() => {
     const col = colRef.current;
-    const line = lineRef.current;
-    if (!col || !line) return;
-    let target = 0;
-    let cur = 0;
+    const cross = crossRef.current;
+    if (!col || !cross) return;
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
     let raf = 0;
-    let inside = false;
+    let primed = false;
+    const tick = () => {
+      cx += (tx - cx) * 0.22;
+      cy += (ty - cy) * 0.22;
+      const x = cx.toFixed(1);
+      const y = cy.toFixed(1);
+      if (hRef.current) hRef.current.style.transform = `translate3d(0,${y}px,0)`;
+      if (vRef.current) vRef.current.style.transform = `translate3d(${x}px,0,0)`;
+      if (reticleRef.current) reticleRef.current.style.transform = `translate3d(${x}px,${y}px,0)`;
+      if (xRef.current) xRef.current.textContent = String(Math.round(cx)).padStart(4, "0");
+      if (yRef.current) yRef.current.textContent = String(Math.round(cy)).padStart(4, "0");
+      raf = Math.abs(tx - cx) + Math.abs(ty - cy) > 0.4 ? requestAnimationFrame(tick) : 0;
+    };
     const move = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       const r = col.getBoundingClientRect();
-      target = e.clientY - r.top;
-      inside = true;
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (!primed) {
+        cx = tx;
+        cy = ty;
+        primed = true;
+      }
+      cross.style.opacity = "1";
       if (!raf) raf = requestAnimationFrame(tick);
     };
     const leave = () => {
-      inside = false;
-      line.style.opacity = "0";
-    };
-    const tick = () => {
-      cur += (target - cur) * 0.18;
-      line.style.transform = `translate3d(0,${cur.toFixed(1)}px,0)`;
-      line.style.opacity = inside ? "1" : "0";
-      if (yRef.current) yRef.current.textContent = String(Math.round(cur)).padStart(4, "0");
-      raf = Math.abs(target - cur) > 0.3 ? requestAnimationFrame(tick) : 0;
+      cross.style.opacity = "0";
+      primed = false;
     };
     col.addEventListener("pointermove", move);
     col.addEventListener("pointerleave", leave);
@@ -290,14 +308,32 @@ export function Why() {
         </div>
 
         {/* stages */}
-        <div ref={colRef} className="relative lg:col-span-7">
+        <div ref={colRef} className="relative lg:col-span-7 lg:cursor-crosshair">
           <div
-            ref={lineRef}
+            ref={crossRef}
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 z-20 hidden h-px border-t border-dashed border-scc opacity-0 transition-opacity duration-300 lg:block"
+            className="pointer-events-none absolute inset-0 z-20 hidden overflow-hidden opacity-0 transition-opacity duration-300 lg:block"
           >
-            <span className="mono-label absolute right-2 top-1 bg-scc px-1.5 py-0.5 text-[9px] text-paper">
-              Y:<span ref={yRef}>0000</span>
+            {/* horizontal hair */}
+            <span ref={hRef} className="absolute inset-x-0 top-0 block h-px border-t border-dashed border-scc/80">
+              <span className="mono-label absolute right-2 top-1 bg-scc px-1.5 py-0.5 text-[9px] text-paper">
+                Y:<span ref={yRef}>0000</span>
+              </span>
+            </span>
+            {/* vertical hair */}
+            <span ref={vRef} className="absolute inset-y-0 left-0 block w-px border-l border-dashed border-scc/80">
+              <span className="mono-label absolute left-1 top-2 bg-ink px-1.5 py-0.5 text-[9px] text-paper">
+                X:<span ref={xRef}>0000</span>
+              </span>
+            </span>
+            {/* reticle */}
+            <span ref={reticleRef} className="absolute left-0 top-0 block">
+              <span className="absolute -left-[14px] -top-[14px] h-7 w-7 rounded-full border border-scc" />
+              <span className="absolute -left-[3px] -top-[3px] h-1.5 w-1.5 bg-scc" />
+              <span className="absolute -left-[22px] top-0 h-px w-[6px] bg-scc" />
+              <span className="absolute left-[16px] top-0 h-px w-[6px] bg-scc" />
+              <span className="absolute -top-[22px] left-0 h-[6px] w-px bg-scc" />
+              <span className="absolute left-0 top-[16px] h-[6px] w-px bg-scc" />
             </span>
           </div>
           {STAGES.map((s, i) => (

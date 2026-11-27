@@ -92,8 +92,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-rule bg-paper/90 backdrop-blur-[6px] transition-[transform,box-shadow] duration-500 [transition-timing-function:cubic-bezier(.7,0,.2,1)]",
-        scrolled && "shadow-[0_1px_0_0_var(--rule)]",
+        "sticky top-0 z-50 border-b border-rule bg-paper transition-[transform,box-shadow] duration-500 [transition-timing-function:cubic-bezier(.7,0,.2,1)]",
+        scrolled && "shadow-[0_1px_0_0_var(--rule),0_10px_24px_-18px_rgba(29,29,27,.55)]",
         hidden && "-translate-y-full",
       )}
     >
@@ -102,17 +102,19 @@ export function Header() {
           <Wordmark />
         </Link>
 
-        <nav className="hidden h-full items-center xl:flex">
+        <nav aria-label="Primary" className="hidden h-full items-center xl:flex">
           {NAV.map((n, i) => (
             <div key={n.label} className={cn("group/nav h-full", !n.mega && "relative")}>
               <a
                 href={n.href}
                 target={n.href.startsWith("http") && n.label === "Design Your Building" ? "_blank" : undefined}
                 rel={n.label === "Design Your Building" ? "noreferrer" : undefined}
-                className="relative flex h-full items-center gap-1.5 px-3 font-tech text-[15px] font-semibold uppercase tracking-[0.05em] text-ink transition-colors group-hover/nav:text-scc"
+                className="relative flex h-full items-center gap-1.5 px-3 font-tech text-[15px] font-semibold uppercase leading-none tracking-[0.05em] text-ink transition-colors group-hover/nav:text-scc"
               >
-                <span className="mono text-[10px] font-normal text-pencil">{String(i + 1).padStart(2, "0")}</span>
-                {n.label}
+                <span className="mono self-center text-[10px] font-normal leading-none text-pencil">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="max-w-[9.5em] text-left leading-[0.95] 2xl:max-w-none">{n.label}</span>
                 {n.children && <Chevron className="transition-transform duration-300 group-hover/nav:rotate-180" />}
                 <span className="absolute inset-x-3 bottom-0 h-[2px] origin-left scale-x-0 bg-scc transition-transform duration-300 group-hover/nav:scale-x-100" />
               </a>
@@ -147,7 +149,7 @@ export function Header() {
                         <div className="col-span-4 flex flex-col justify-between bg-grid p-6">
                           <div>
                             <span className="mono-label text-[10px] text-scc">Plan room</span>
-                            <p className="mt-3 font-display text-[22px] font-bold uppercase leading-[1.02] tracking-[-0.02em] text-ink">
+                            <p className="mt-3 font-display text-[24px] font-bold uppercase leading-[1] tracking-[0.005em] text-ink">
                               Browse 8 sample plan sheets with elevations + floor plans
                             </p>
                           </div>
@@ -223,7 +225,7 @@ export function Header() {
               <div className="flex h-[68px] shrink-0 items-center border-b border-rule px-5">
                 <Wordmark />
               </div>
-              <nav className="flex flex-col">
+              <nav aria-label="Mobile" className="flex flex-col">
                 {NAV.map((n, i) =>
                   n.children ? (
                     <details key={n.label} className="group/d border-b border-rule">
